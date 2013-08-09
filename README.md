@@ -13,6 +13,16 @@ or
 python setup.py install
 ```
 
+On Debian/Ubuntu `python-setuptools` and `python-dev` are required.
+
+## Tests ##
+Test are done with nosetests and require installation of nose
+```
+pip install nose
+
+python setup.py test
+```
+
 ## Examples ##
 ### Local ###
 ```python

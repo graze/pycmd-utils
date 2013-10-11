@@ -47,6 +47,10 @@ See `examples.py` for more usage examples.
 
 Versions
 --------
+* 0.3.0
+  - Moved running of command lists into separate functions (backwards incomp)
+  - Made specifying a working directory optional
+  - Tidied tests
 * 0.2.0
   - Encrypted Keyfile handling fixed
   - Username handling improved (backwards incompatible)

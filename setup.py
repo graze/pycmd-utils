@@ -5,7 +5,7 @@ from setuptools import setup
 import multiprocessing
 
 setup(name='cmd_utils',
-      version='0.2.0',
+      version='0.3.0',
       description='Wrapper for subprocess.Popen and paramiko',
       long_description=('Wrapper for subprocess.Popen and paramiko '
                         'to allow easy running of commands locally and '

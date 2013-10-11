@@ -1,5 +1,3 @@
-import os
-import pwd
 from nose.tools import raises
 import cmd_utils
 
@@ -66,11 +64,10 @@ def test_run_ssh_cmd():
     EXPECTED_RC = 0
 
     HOST = '127.0.0.1'
-    USER = pwd.getpwuid(os.getuid()).pw_name  # Get current username
     CMD = 'echo true'
     DIR = '.'
 
-    output = cmd_utils.run_ssh_cmd(HOST, USER, CMD, DIR, error_on_return=False)
+    output = cmd_utils.run_ssh_cmd(HOST, CMD, DIR, error_on_return=False)
     print output
 
     assert EXPECTED == output[0]
@@ -85,11 +82,10 @@ def test_run_ssh_cmd_wd():
     EXPECTED_RC = 0
 
     HOST = '127.0.0.1'
-    USER = pwd.getpwuid(os.getuid()).pw_name  # Get current username
     CMD = 'pwd'
     DIR = '/'
 
-    output = cmd_utils.run_ssh_cmd(HOST, USER, CMD, DIR, error_on_return=False)
+    output = cmd_utils.run_ssh_cmd(HOST, CMD, DIR, error_on_return=False)
     print output
 
     assert EXPECTED == output[0]
@@ -102,8 +98,7 @@ def test_run_ssh_cmd_rc():
     Test run_ssh_cmd() return code handling
     '''
     HOST = '127.0.0.1'
-    USER = pwd.getpwuid(os.getuid()).pw_name  # Get current username
     CMD = 'false'
     DIR = '.'
 
-    cmd_utils.run_ssh_cmd(HOST, USER, CMD, DIR)
+    cmd_utils.run_ssh_cmd(HOST, CMD, DIR)

@@ -38,14 +38,15 @@ output = cmd_utils.run_cmd(command, target_dir)
 import cmd_utils
 
 host = "host.example.com"
-username = "mark"
 working_dir = "/home/mark/a-git-repo"
 command = "git diff-index --quiet HEAD --"
 
-output = cmd_utils.run_cmd(host, username, command, working_dir)
+output = cmd_utils.run_cmd(host, command, working_dir)
 ```
 See `examples.py` for more usage examples.
 
 Versions
 --------
-* 0.1 - Initial Release
+0.2.0 - Encrypted Keyfile handling fixed
+      - Username handling improved (backwards incompatible)
+0.1 - Initial Release

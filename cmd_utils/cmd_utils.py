@@ -39,15 +39,15 @@ def run_cmd(commands, work_dir, error_on_return=True):
     return out_list
 
 
-def run_ssh_cmd(host, username, commands, work_dir, key_filename=None,
+def run_ssh_cmd(host, commands, work_dir, username=None, key_filename=None,
                 error_on_return=True):
     '''
     Run shell command(s) over ssh
     Input:
         host - target machine
-        username - target machine user
         commands - list of commands or string for one command
         work_dir - working directory
+        username - target machine user (if not specified current user)
         key_filename - filepath for private key
         error_on_return - raise CommandException on non-zero return
     Returns:

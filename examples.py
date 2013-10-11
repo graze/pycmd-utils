@@ -5,8 +5,6 @@ import os
 import pwd
 import cmd_utils
 
-USER = pwd.getpwuid(os.getuid()).pw_name  # Get current username
-
 print "Local - List current dir"
 output = cmd_utils.run_cmd("ls -l", ".")
 print "Output:\n%s" % output[0]  # Output
@@ -36,19 +34,19 @@ print "2 Return Code: %i" % output[2][1]    # Command 2 Return Code
 # to localhost via ssh
 
 print "Remote - List root dir"
-output = cmd_utils.run_ssh_cmd("127.0.0.1", USER, "ls -l", "/")
+output = cmd_utils.run_ssh_cmd("127.0.0.1", "ls -l", "/")
 print "Output:\n%s" % output[0]  # Output
 print "Return Code: %i" % output[1]  # Return Code
 
 print "Remote - Ignore non-zero return"
-output = cmd_utils.run_ssh_cmd("127.0.0.1", USER, "false", "/",
+output = cmd_utils.run_ssh_cmd("127.0.0.1", "false", "/",
                                error_on_return=False)
 print "Output:\n%s" % output[0]  # Output
 print "Return Code: %i" % output[1]  # Return Code
 
 print "Remote - Multiple Commands"
 commands = ["pwd", "ls -l", "pwd"]
-output = cmd_utils.run_ssh_cmd("127.0.0.1", USER, commands, "/")
+output = cmd_utils.run_ssh_cmd("127.0.0.1", commands, "/")
 print "0 Output:\n%s" % output[0][0]        # Command 0 Output
 print "0 Return Code: %i" % output[0][1]    # Command 0 Return Code
 print "1 Output:\n%s" % output[1][0]        # Command 1 Output

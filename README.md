@@ -47,6 +47,7 @@ See `examples.py` for more usage examples.
 
 Versions
 --------
-0.2.0 - Encrypted Keyfile handling fixed
-      - Username handling improved (backwards incompatible)
-0.1 - Initial Release
+* 0.2.0
+  - Encrypted Keyfile handling fixed
+  - Username handling improved (backwards incompatible)
+* 0.1 - Initial Release

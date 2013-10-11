@@ -68,7 +68,9 @@ def run_ssh_cmd(host, username, commands, work_dir, key_filename=None,
     if key_filename is not None:
         ssh.connect(host, username=username, key_filename=key_filename)
     else:
-        ssh.connect(host, username=username)
+        # Setting look_for_keys=False here so we only use ssh-agent
+        # if we find the file and it's encrypted things break
+        ssh.connect(host, username=username, look_for_keys=False)
 
     out_list = []
 

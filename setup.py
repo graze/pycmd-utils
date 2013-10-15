@@ -5,13 +5,13 @@ from setuptools import setup
 import multiprocessing
 
 setup(name='cmd_utils',
-      version='0.3.0',
+      version='0.4.0',
       description='Wrapper for subprocess.Popen and paramiko',
       long_description=('Wrapper for subprocess.Popen and paramiko '
                         'to allow easy running of commands locally and '
                         'remotely with error handling'),
       classifiers=[
-          'Development Status :: 3 - Alpha',
+          'Development Status :: 4 - Beta',
           'Programming Language :: Python :: 2.7',
           'Intended Audience :: Developers',
           'Operating System :: Unix',

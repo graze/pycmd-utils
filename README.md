@@ -70,6 +70,11 @@ See `examples.py` for more usage examples.
 
 Versions
 --------
+* 0.4.1
+  - Fixed Docstrings to comply with pep257
+  - Expanded error handling to catch SSH exceptions and raise SSHError (subclass of CommandException)
+  - Changed exception raiseed on non-zero return code to ReturnCodeError (subclass of CommandException)
+  - Added tests for new exception handling
 * 0.4.0
   - Added streaming commands using generators
   - Removed output of return code and added attribute to CommandException

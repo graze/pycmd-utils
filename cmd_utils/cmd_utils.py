@@ -1,18 +1,20 @@
-'''
-Basic Shell / SSH commands
+"""
+Basic Shell / SSH commands.
+
 Non-streaming output is returned after command completes.
-'''
+
+"""
 import os
 import subprocess
 
-
-from cmd_exception import CommandException
+from cmd_exception import ReturnCodeError
 import ssh_conn
 
 
 def run_cmd(command, work_dir=None):
-    '''
-    Run shell command
+    """
+    Run shell command.
+
     Input:
         command  - string of command to run
         work_dir - working directory
@@ -20,7 +22,9 @@ def run_cmd(command, work_dir=None):
         output_str
     Raises:
         CommandException
-    '''
+            ReturnCodeError
+
+    """
     if work_dir is not None:
         os.chdir(work_dir)  # Change to working directory
 
@@ -31,22 +35,26 @@ def run_cmd(command, work_dir=None):
     # Throw exception if return code is not 0
     if return_code:
         exc = "%s\nCOMMAND:%s\nRET_CODE:%i" % (output, command, return_code)
-        raise CommandException(exc, return_code)
+        raise ReturnCodeError(exc, return_code)
 
     return output
 
 
 def run_cmd_list(commands, work_dir=None):
-    '''
-    Run a list of shell commands
+    """
+    Run a list of shell commands.
+
     Input:
         commands - list of commands to run
         work_dir - working directory
     Returns:
         [output_str, ]
     Raises:
+        TypeError
         CommandException
-    '''
+            ReturnCodeError
+
+    """
     if not isinstance(commands, list):
         raise TypeError("commands must be a list")
     out_list = []
@@ -57,8 +65,9 @@ def run_cmd_list(commands, work_dir=None):
 
 def run_ssh_cmd(host, command, work_dir=None, username=None,
                 key_filename=None, _connection=None):
-    '''
-    Run shell command over ssh
+    """
+    Run shell command over ssh.
+
     Input:
         host         - target machine
         command      - string of command to run
@@ -70,7 +79,10 @@ def run_ssh_cmd(host, command, work_dir=None, username=None,
         output_str
     Raises:
         CommandException
-    '''
+            SSHError
+            ReturnCodeError
+
+    """
     # If no connection passed in create our own
     if _connection is None:
         ssh = ssh_conn.connect(host, username, key_filename)
@@ -93,7 +105,7 @@ def run_ssh_cmd(host, command, work_dir=None, username=None,
     if return_code:
         ssh.close()  # Tidy Up
         exc = "%s\nCOMMAND:%s\nRET_CODE:%i" % (output, command, return_code)
-        raise CommandException(exc, return_code)
+        raise ReturnCodeError(exc, return_code)
 
     if _connection is None:
         ssh.close()
@@ -102,8 +114,9 @@ def run_ssh_cmd(host, command, work_dir=None, username=None,
 
 def run_ssh_cmd_list(host, commands, work_dir=None, username=None,
                      key_filename=None):
-    '''
-    Run shell commands over ssh
+    """
+    Run shell commands over ssh.
+
     Input:
         host         - target machine
         commands     - list of commands to run
@@ -113,8 +126,12 @@ def run_ssh_cmd_list(host, commands, work_dir=None, username=None,
     Returns:
         [output_str, ]
     Raises:
+        TypeError
         CommandException
-    '''
+            SSHError
+            ReturnCodeError
+
+    """
     if not isinstance(commands, list):
         raise TypeError("commands must be a list")
 

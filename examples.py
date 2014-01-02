@@ -11,6 +11,15 @@ print "Local - List a different dir"
 output = cmd_utils.run_cmd("ls -l", "/")
 print "Output:\n%s" % output
 
+print "Local - Catch Exception"
+try:
+    output = cmd_utils.run_cmd("THISCOMMANDDOESNOTEXIST")
+except cmd_utils.ReturnCodeError as e:
+    print "Caught Error:",
+    print e
+
+print ""
+
 print "Local - Multiple Commands"
 commands = ["pwd", "ls -l", "pwd"]
 output = cmd_utils.run_cmd_list(commands)

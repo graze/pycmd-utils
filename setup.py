@@ -1,30 +1,28 @@
-'''
-Setup File
-'''
+"""Setup File."""
 from setuptools import setup
-import multiprocessing
+import multiprocessing  # Needed for setup
 
-setup(name='cmd_utils',
-      version='0.4.0',
-      description='Wrapper for subprocess.Popen and paramiko',
-      long_description=('Wrapper for subprocess.Popen and paramiko '
-                        'to allow easy running of commands locally and '
-                        'remotely with error handling'),
+setup(name="cmd_utils",
+      version="0.4.1",
+      description="Wrapper for subprocess.Popen and paramiko",
+      long_description=("Wrapper for subprocess.Popen and paramiko "
+                        "to allow easy running of commands locally and "
+                        "remotely with error handling"),
       classifiers=[
-          'Development Status :: 4 - Beta',
-          'Programming Language :: Python :: 2.7',
-          'Intended Audience :: Developers',
-          'Operating System :: Unix',
-          'License :: OSI Approved :: MIT License',
+          "Development Status :: 4 - Beta",
+          "Programming Language :: Python :: 2.7",
+          "Intended Audience :: Developers",
+          "Operating System :: Unix",
+          "License :: OSI Approved :: MIT License",
       ],
-      keywords='cmd shell ssh command run paramiko',
-      url='https://github.com/graze/pycmd-utils',
-      author='Mark Egan-Fuller',
-      author_email='mark.eganfuller@graze.com',
-      license='MIT',
-      packages=['cmd_utils'],
+      keywords="cmd shell ssh command run paramiko",
+      url="https://github.com/graze/pycmd-utils",
+      author="Mark Egan-Fuller",
+      author_email="mark.eganfuller@graze.com",
+      license="MIT",
+      packages=["cmd_utils"],
       zip_safe=False,
       install_requires=["paramiko"],
-      test_suite='nose.collector',
-      tests_require=['nose']
+      test_suite="nose.collector",
+      tests_require=["nose"]
       )

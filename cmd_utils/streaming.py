@@ -1,18 +1,21 @@
-'''
-Streaming Shell / SSH Commands
+"""
+Streaming Shell / SSH Commands.
+
 Return Generator Objects enabling streaming output
-'''
+
+"""
 import os
 import subprocess
 
 
-from cmd_exception import CommandException
+from cmd_exception import ReturnCodeError
 import ssh_conn
 
 
 def run_cmd(command, work_dir=None):
     """
-    Run shell command with streaming output
+    Run shell command with streaming output.
+
     Input:
         command  - string of command to run
         work_dir - working directory
@@ -20,6 +23,8 @@ def run_cmd(command, work_dir=None):
         output_str
     Raises:
         CommandException
+            ReturnCodeError
+
     """
     if work_dir is not None:
         os.chdir(work_dir)  # Change to working directory
@@ -37,20 +42,24 @@ def run_cmd(command, work_dir=None):
     # Throw exception if return code is not 0
     if return_code:
         exc = "\nCOMMAND:%s\nRET_CODE:%i" % (command, return_code)
-        raise CommandException(exc, return_code)
+        raise ReturnCodeError(exc, return_code)
 
 
 def run_cmd_list(commands, work_dir=None):
-    '''
-    Run a list of shell commands with streaming output
+    """
+    Run a list of shell commands with streaming output.
+
     Input:
         commands - list of commands to run
         work_dir - working directory
     Returns (per iteration):
         output_str
     Raises:
+        TypeError
         CommandException
-    '''
+            ReturnCodeError
+
+    """
     if not isinstance(commands, list):
         raise TypeError("commands must be a list")
     for command in commands:
@@ -60,8 +69,9 @@ def run_cmd_list(commands, work_dir=None):
 
 def run_ssh_cmd(host, command, work_dir=None, username=None,
                 key_filename=None, _connection=None):
-    '''
-    Run shell command over ssh with streaming output
+    """
+    Run shell command over ssh with streaming output.
+
     Input:
         host         - target machine
         command      - string of command to run
@@ -73,7 +83,10 @@ def run_ssh_cmd(host, command, work_dir=None, username=None,
         output_str
     Raises:
         CommandException
-    '''
+            SSHError
+            ReturnCodeError
+
+    """
     # If no connection passed in create our own
     if _connection is None:
         ssh = ssh_conn.connect(host, username, key_filename)
@@ -103,7 +116,7 @@ def run_ssh_cmd(host, command, work_dir=None, username=None,
     if return_code:
         ssh.close()  # Tidy Up
         exc = "COMMAND:%s\nRET_CODE:%i" % (command, return_code)
-        raise CommandException(exc, return_code)
+        raise ReturnCodeError(exc, return_code)
 
     if _connection is None:
         ssh.close()
@@ -111,8 +124,9 @@ def run_ssh_cmd(host, command, work_dir=None, username=None,
 
 def run_ssh_cmd_list(host, commands, work_dir=None, username=None,
                      key_filename=None):
-    '''
-    Run a list of shell commands over ssh with streaming output
+    """
+    Run a list of shell commands over ssh with streaming output.
+
     Input:
         host         - target machine
         commands     - list of commands to run
@@ -122,8 +136,12 @@ def run_ssh_cmd_list(host, commands, work_dir=None, username=None,
     Returns (per iteration):
         output_str
     Raises:
+        TypeError
         CommandException
-    '''
+            SSHError
+            ReturnCodeError
+
+    """
     if not isinstance(commands, list):
         raise TypeError("commands must be a list")
 
